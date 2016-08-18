@@ -1,5 +1,5 @@
 {
-  "name": "bbn",
+  "name": "black-sam",
   "description": "A command-line tool for blog.bouzuya.net",
   "version": "3.0.0",
   "author": {
@@ -11,7 +11,7 @@
     "bbn": "./bin/bbn"
   },
   "bugs": {
-    "url": "https://github.com/bouzuya/bbn/issues"
+    "url": "https://github.com/bouzuya/black-sam/issues"
   },
   "dependencies": {
     "commander-b": "^0.2.1",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "coffee-script": "1.10.0"
   },
-  "homepage": "https://github.com/bouzuya/bbn",
+  "homepage": "https://github.com/bouzuya/black-sam",
   "keywords": [
     "blog.bouzuya.net",
     "bouzuya"
@@ -30,7 +30,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bouzuya/bbn.git"
+    "url": "git://github.com/bouzuya/black-sam.git"
   },
   "scripts": {
     "build": "coffee -c -o lib/ src/",

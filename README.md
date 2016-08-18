@@ -1,12 +1,16 @@
-# bbn
+![black-sam logo](https://cloud.githubusercontent.com/assets/1221346/17794723/f3d4aaf2-65ec-11e6-81ee-15cf9dee604e.png)
 
-A command-line tool for [blog.bouzuya.net](http://blog.bouzuya.net).
+black-sam is a command-line tool for [blog.bouzuya.net](http://blog.bouzuya.net).
+
+old version: [bouzuya/bbn][].
+
+[bouzuya/bbn]: https://github.com/bouzuya/bbn
 
 See: [bouzuya/blog.bouzuya.net][]
 
 ## Installation
 
-    $ npm install -g bouzuya/bbn
+    $ npm install -g bouzuya/black-sam
 
 ## Usage
 
