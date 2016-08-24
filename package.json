@@ -28,6 +28,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/bouzuya/black-sam.git"
