@@ -32,7 +32,11 @@ getCommand = ->
       markdown = getMarkdownTemplate date, options
       fs.outputFileSync jsonFile, json, encoding: 'utf8'
       fs.outputFileSync markdownFile, markdown, encoding: 'utf8'
-      console.log "create a new post #{markdownFile}"
+      console.log [
+        'create a new post'
+        markdownFile
+        jsonFile
+      ].join('\n')
       return 0
   program
 
