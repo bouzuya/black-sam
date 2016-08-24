@@ -76,8 +76,12 @@ getMarkdownTemplateForWeekend = (m, options) ->
   """
 
 getTitle = (dir, date) ->
-  data = fs.readFileSync getBaseNamePath(dir, date) + '.json', encoding: 'utf8'
-  JSON.parse(data).title
+  readMeta(dir, date).title
+
+readMeta = (dir, date) ->
+  file = getBaseNamePath(dir, date) + '.json'
+  data = fs.readFileSync file, encoding: 'utf8'
+  JSON.parse(data)
 
 module.exports = ->
   command = getCommand()
