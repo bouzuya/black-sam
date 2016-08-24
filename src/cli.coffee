@@ -50,6 +50,7 @@ getJsonTemplate = (m, _options) ->
     title: ''
     tags: ['']
     minutes: 0
+  , null, 2
 
 getMarkdownTemplate = (m, options) ->
   if options.weekend
