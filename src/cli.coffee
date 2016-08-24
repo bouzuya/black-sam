@@ -44,12 +44,6 @@ getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
 
-getMetaTemplate = (m, _options) ->
-  pubdate: m.format()
-  title: ''
-  tags: ['']
-  minutes: 0
-
 getDataTemplate = (m, options) ->
   if options.weekend
     getDataTemplateForWeekend(m, options)
@@ -75,6 +69,12 @@ getDataTemplateForWeekend = (m, options) ->
 
 getMetaFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.json'
+
+getMetaTemplate = (m, _options) ->
+  pubdate: m.format()
+  title: ''
+  tags: ['']
+  minutes: 0
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
