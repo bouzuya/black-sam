@@ -28,9 +28,9 @@ getCommand = ->
       console.error "the post #{markdownFile} already exists"
       return 1
     else
-      json = getJsonTemplate date, options
+      meta = getMetaTemplate date, options
       markdown = getMarkdownTemplate date, options
-      fs.outputFileSync jsonFile, json, encoding: 'utf8'
+      writeMeta options.directory, date.format('YYYY-MM-DD'), meta
       fs.outputFileSync markdownFile, markdown, encoding: 'utf8'
       console.log [
         'create a new post'
@@ -44,13 +44,11 @@ getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
 
-getJsonTemplate = (m, _options) ->
-  JSON.stringify
-    pubdate: m.format()
-    title: ''
-    tags: ['']
-    minutes: 0
-  , null, 2
+getMetaTemplate = (m, _options) ->
+  pubdate: m.format()
+  title: ''
+  tags: ['']
+  minutes: 0
 
 getMarkdownTemplate = (m, options) ->
   if options.weekend
@@ -82,6 +80,11 @@ readMeta = (dir, date) ->
   file = getBaseNamePath(dir, date) + '.json'
   data = fs.readFileSync file, encoding: 'utf8'
   JSON.parse(data)
+
+writeMeta = (dir, date, meta) ->
+  file = getBaseNamePath(dir, date) + '.json'
+  data = JSON.stringify meta, null, 2
+  fs.outputFileSync file, data, encoding: 'utf8'
 
 module.exports = ->
   command = getCommand()
