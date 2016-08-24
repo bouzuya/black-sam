@@ -54,18 +54,7 @@ getMarkdownTemplate = (m, options) ->
     getMarkdownTemplateForWeekday(m, options)
 
 getMarkdownTemplateForWeekday = (m, options) ->
-  """
-    ---
-    layout: post
-    pubdate: "#{m.format()}"
-    title: ''
-    tags: ['']
-    minutes:
-    pagetype: posts
-    ---
-
-
-  """
+  ''
 
 getMarkdownTemplateForWeekend = (m, options) ->
   posts = [1..7]
@@ -76,15 +65,6 @@ getMarkdownTemplateForWeekend = (m, options) ->
     title: getTitle options.directory, date
     url: "http://blog.bouzuya.net/#{date.replace(/-/g, '/')}/"
   """
-    ---
-    layout: post
-    pubdate: "#{m.format()}"
-    title: ''
-    tags: ['']
-    minutes:
-    pagetype: posts
-    ---
-
     # 今週のふりかえり
 
     #{posts.map((i) -> "- [#{i.date} #{i.title}][#{i.date}]").join('\n')}
