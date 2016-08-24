@@ -29,9 +29,9 @@ getCommand = ->
       return 1
     else
       meta = getMetaTemplate date, options
-      markdown = getMarkdownTemplate date, options
+      data = getDataTemplate date, options
       writeMeta options.directory, date.format('YYYY-MM-DD'), meta
-      fs.outputFileSync markdownFile, markdown, encoding: 'utf8'
+      writeData options.directory, date.format('YYYY-MM-DD'), data
       console.log [
         'create a new post'
         markdownFile
@@ -50,16 +50,16 @@ getMetaTemplate = (m, _options) ->
   tags: ['']
   minutes: 0
 
-getMarkdownTemplate = (m, options) ->
+getDataTemplate = (m, options) ->
   if options.weekend
-    getMarkdownTemplateForWeekend(m, options)
+    getDataTemplateForWeekend(m, options)
   else
-    getMarkdownTemplateForWeekday(m, options)
+    getDataTemplateForWeekday(m, options)
 
-getMarkdownTemplateForWeekday = (m, options) ->
+getDataTemplateForWeekday = (m, options) ->
   ''
 
-getMarkdownTemplateForWeekend = (m, options) ->
+getDataTemplateForWeekend = (m, options) ->
   posts = [1..7]
   .map (i) ->
     moment(m).subtract(i, 'days').format('YYYY-MM-DD')
@@ -80,6 +80,10 @@ readMeta = (dir, date) ->
   file = getBaseNamePath(dir, date) + '.json'
   data = fs.readFileSync file, encoding: 'utf8'
   JSON.parse(data)
+
+writeData = (dir, date, data) ->
+  file = getBaseNamePath(dir, date) + '.md'
+  fs.outputFileSync file, data, encoding: 'utf8'
 
 writeMeta = (dir, date, meta) ->
   file = getBaseNamePath(dir, date) + '.json'
