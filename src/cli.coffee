@@ -27,7 +27,7 @@ getCommand = ->
       console.error "the post #{file} already exists"
       return 1
     else
-      data = getTemplate date, options
+      data = getMarkdownTemplate date, options
       fs.outputFileSync file, data, encoding: 'utf8'
       console.log "create a new post #{file}"
       return 0
@@ -37,13 +37,13 @@ getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
 
-getTemplate = (m, options) ->
+getMarkdownTemplate = (m, options) ->
   if options.weekend
-    getTemplateForWeekend(m, options)
+    getMarkdownTemplateForWeekend(m, options)
   else
-    getTemplateForWeekday(m, options)
+    getMarkdownTemplateForWeekday(m, options)
 
-getTemplateForWeekday = (m, options) ->
+getMarkdownTemplateForWeekday = (m, options) ->
   """
     ---
     layout: post
@@ -57,7 +57,7 @@ getTemplateForWeekday = (m, options) ->
 
   """
 
-getTemplateForWeekend = (m, options) ->
+getMarkdownTemplateForWeekend = (m, options) ->
   posts = [1..7]
   .map (i) ->
     moment(m).subtract(i, 'days').format('YYYY-MM-DD')
