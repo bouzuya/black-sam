@@ -22,12 +22,15 @@ getCommand = ->
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
     baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
     markdownFile = baseNamePath + '-diary.md'
+    jsonFile = baseNamePath + '.json'
 
     if fs.existsSync markdownFile
       console.error "the post #{markdownFile} already exists"
       return 1
     else
+      json = getJsonTemplate date, options
       markdown = getMarkdownTemplate date, options
+      fs.outputFileSync jsonFile, json, encoding: 'utf8'
       fs.outputFileSync markdownFile, markdown, encoding: 'utf8'
       console.log "create a new post #{markdownFile}"
       return 0
