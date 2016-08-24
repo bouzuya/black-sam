@@ -3,6 +3,10 @@ path = require 'path'
 commander = require 'commander-b'
 moment = require 'moment'
 
+getBaseNamePath = (dir, date) ->
+  [y, m, _] = date.split '-'
+  path.join dir, y, m, date
+
 getCommand = ->
   program = commander 'bbn'
   program.version require('../package.json').version
@@ -16,7 +20,8 @@ getCommand = ->
 
     ts = if options.date then options.date + 'T23:59:59+09:00' else null
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
-    file = getPath options.directory, date.format('YYYY-MM-DD')
+    baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
+    file = baseNamePath + '-diary.md'
 
     if fs.existsSync file
       console.error "the post #{file} already exists"
@@ -31,10 +36,6 @@ getCommand = ->
 getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
-
-getPath = (dir, date) ->
-  [y, m, _] = date.split '-'
-  path.join dir, y, m, date + '-diary.md'
 
 getTemplate = (m, options) ->
   """
