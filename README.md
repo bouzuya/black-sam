@@ -32,6 +32,13 @@ See: [bouzuya/blog.bouzuya.net][]
 
 [bouzuya/blog.bouzuya.net][] 1.x - 2.x
 
+## Badges
+
+[![Travis CI][travisci-badge-url]][travisci-url]
+
+[travisci-badge-url]: https://travis-ci.org/bouzuya/black-sam.svg
+[travisci-url]: https://travis-ci.org/bouzuya/black-sam
+
 ## License
 
 [MIT](LICENSE)
