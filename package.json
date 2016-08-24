@@ -14,7 +14,7 @@
     "url": "https://github.com/bouzuya/black-sam/issues"
   },
   "dependencies": {
-    "commander-b": "^0.2.1",
+    "commander-b": "1.0.0",
     "fs-extra": "0.30.0",
     "moment": "2.13.0"
   },
