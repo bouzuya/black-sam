@@ -34,7 +34,7 @@ getConfig = ->
 
 getPath = (dir, date) ->
   [y, m, _] = date.split '-'
-  path.join dir, 'data', y, m, date + '-diary.md'
+  path.join dir, y, m, date + '-diary.md'
 
 getTemplate = (m, options) ->
   """

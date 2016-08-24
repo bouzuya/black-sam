@@ -16,7 +16,7 @@ See: [bouzuya/blog.bouzuya.net][]
 
     $ cat ~/.bbn.json
     {
-      "directory": "/home/bouzuya/blog.bouzuya.net"
+      "directory": "/home/bouzuya/blog.bouzuya.net/data"
     }
 
     $ bbn new
