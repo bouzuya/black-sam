@@ -22,7 +22,7 @@ getCommand = ->
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
     baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
     markdownFile = baseNamePath + '.md'
-    jsonFile = baseNamePath + '.json'
+    metaFile = getMetaFile options.directory, date.format('YYYY-MM-DD')
 
     if fs.existsSync markdownFile
       console.error "the post #{markdownFile} already exists"
@@ -30,12 +30,12 @@ getCommand = ->
     else
       meta = getMetaTemplate date, options
       data = getDataTemplate date, options
-      writeMeta options.directory, date.format('YYYY-MM-DD'), meta
+      writeMeta metaFile, meta
       writeData options.directory, date.format('YYYY-MM-DD'), data
       console.log [
         'create a new post'
         markdownFile
-        jsonFile
+        metaFile
       ].join('\n')
       return 0
   program
@@ -73,11 +73,13 @@ getDataTemplateForWeekend = (m, options) ->
     #{posts.map((i) -> "- [#{i.date} #{i.title}][#{i.date}]").join('\n')}
   """
 
-getTitle = (dir, date) ->
-  readMeta(dir, date).title
+getMetaFile = (dir, date) ->
+  getBaseNamePath(dir, date) + '.json'
 
-readMeta = (dir, date) ->
-  file = getBaseNamePath(dir, date) + '.json'
+getTitle = (dir, date) ->
+  readMeta(getMetaFile(dir, date)).title
+
+readMeta = (file) ->
   data = fs.readFileSync file, encoding: 'utf8'
   JSON.parse(data)
 
@@ -85,8 +87,7 @@ writeData = (dir, date, data) ->
   file = getBaseNamePath(dir, date) + '.md'
   fs.outputFileSync file, data, encoding: 'utf8'
 
-writeMeta = (dir, date, meta) ->
-  file = getBaseNamePath(dir, date) + '.json'
+writeMeta = (file, meta) ->
   data = JSON.stringify meta, null, 2
   fs.outputFileSync file, data, encoding: 'utf8'
 
