@@ -21,15 +21,15 @@ getCommand = ->
     ts = if options.date then options.date + 'T23:59:59+09:00' else null
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
     baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
-    file = baseNamePath + '-diary.md'
+    markdownFile = baseNamePath + '-diary.md'
 
-    if fs.existsSync file
-      console.error "the post #{file} already exists"
+    if fs.existsSync markdownFile
+      console.error "the post #{markdownFile} already exists"
       return 1
     else
-      data = getMarkdownTemplate date, options
-      fs.outputFileSync file, data, encoding: 'utf8'
-      console.log "create a new post #{file}"
+      markdown = getMarkdownTemplate date, options
+      fs.outputFileSync markdownFile, markdown, encoding: 'utf8'
+      console.log "create a new post #{markdownFile}"
       return 0
   program
 
