@@ -38,6 +38,12 @@ getConfig = ->
   if fs.existsSync configFile then require(configFile) else {}
 
 getTemplate = (m, options) ->
+  if options.weekend
+    getTemplateForWeekend(m, options)
+  else
+    getTemplateForWeekday(m, options)
+
+getTemplateForWeekday = (m, options) ->
   """
     ---
     layout: post
@@ -48,11 +54,10 @@ getTemplate = (m, options) ->
     pagetype: posts
     ---
 
-    #{(if options.weekend then getTemplateForWeekend(m, options) else '')}
+
   """
 
 getTemplateForWeekend = (m, options) ->
-  # [{ date: 'yyyy-mm-dd', title: 'abc' }, ...]
   posts = [1..7]
   .map (i) ->
     moment(m).subtract(i, 'days').format('YYYY-MM-DD')
@@ -61,9 +66,18 @@ getTemplateForWeekend = (m, options) ->
     title: getTitle options.directory, date
     url: "http://blog.bouzuya.net/#{date.replace(/-/g, '/')}/"
   """
-  # 今週のふりかえり
+    ---
+    layout: post
+    pubdate: "#{m.format()}"
+    title: ''
+    tags: ['']
+    minutes:
+    pagetype: posts
+    ---
 
-  #{posts.map((i) -> "- [#{i.date} #{i.title}][#{i.date}]").join('\n')}
+    # 今週のふりかえり
+
+    #{posts.map((i) -> "- [#{i.date} #{i.title}][#{i.date}]").join('\n')}
   """
 
 getTitle = (dir, date) ->
