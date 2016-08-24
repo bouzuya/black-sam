@@ -21,7 +21,7 @@ getCommand = ->
     ts = if options.date then options.date + 'T23:59:59+09:00' else null
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
     baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
-    markdownFile = baseNamePath + '-diary.md'
+    markdownFile = baseNamePath + '.md'
     jsonFile = baseNamePath + '.json'
 
     if fs.existsSync markdownFile
