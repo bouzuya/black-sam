@@ -35,6 +35,7 @@
   },
   "scripts": {
     "build": "coffee -c -o lib/ src/",
-    "clean": "rm -rf .tmp/ lib/"
+    "clean": "rm -rf .tmp/ lib/",
+    "prepublish": "npm run clean && npm run build"
   }
 }
