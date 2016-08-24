@@ -37,6 +37,13 @@ getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
 
+getJsonTemplate = (m, _options) ->
+  JSON.stringify
+    pubdate: m.format()
+    title: ''
+    tags: ['']
+    minutes: 0
+
 getMarkdownTemplate = (m, options) ->
   if options.weekend
     getMarkdownTemplateForWeekend(m, options)
