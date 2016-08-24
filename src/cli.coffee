@@ -76,9 +76,8 @@ getMarkdownTemplateForWeekend = (m, options) ->
   """
 
 getTitle = (dir, date) ->
-  data = fs.readFileSync getPath(dir, date), encoding: 'utf8'
-  title = data.match(/^title: '?(.*)$/m)[1]
-  if title[title.length - 1] is '\'' then title.slice(0, -1) else title
+  data = fs.readFileSync getBaseNamePath(dir, date) + '.json', encoding: 'utf8'
+  JSON.parse(data).title
 
 module.exports = ->
   command = getCommand()
