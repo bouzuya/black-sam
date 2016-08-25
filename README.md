@@ -21,8 +21,8 @@ See: [bouzuya/blog.bouzuya.net][]
 
     $ bbn new
     create a new post
-    /home/bouzuya/blog.bouzuya.net/2016/08/2016-08-25.md
-    /home/bouzuya/blog.bouzuya.net/2016/08/2016-08-25.json
+    /home/bouzuya/blog.bouzuya.net/data/2016/08/2016-08-25.md
+    /home/bouzuya/blog.bouzuya.net/data/2016/08/2016-08-25.json
 
 ## Target blog.bouzuya.net version
 
