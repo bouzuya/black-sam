@@ -20,11 +20,17 @@ See: [bouzuya/blog.bouzuya.net][]
     }
 
     $ bbn new
-    create a new post "2014-06-02-diary.markdown"
+    create a new post
+    /home/bouzuya/blog.bouzuya.net/2016/08/2016-08-25.md
+    /home/bouzuya/blog.bouzuya.net/2016/08/2016-08-25.json
 
 ## Target blog.bouzuya.net version
 
-### 2.x
+### 4.x
+
+[bouzuya/blog.bouzuya.net][] 4.x -
+
+### 2.x, 3.x
 
 [bouzuya/blog.bouzuya.net][] 3.x -
 
