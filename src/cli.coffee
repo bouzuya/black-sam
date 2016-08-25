@@ -20,12 +20,11 @@ getCommand = ->
 
     ts = if options.date then options.date + 'T23:59:59+09:00' else null
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
-    baseNamePath = getBaseNamePath options.directory, date.format('YYYY-MM-DD')
-    markdownFile = baseNamePath + '.md'
+    dataFile = getDataFile options.directory, date.format('YYYY-MM-DD')
     metaFile = getMetaFile options.directory, date.format('YYYY-MM-DD')
 
-    if fs.existsSync markdownFile
-      console.error "the post #{markdownFile} already exists"
+    if fs.existsSync dataFile
+      console.error "the post #{dataFile} already exists"
       return 1
     else
       meta = getMetaTemplate date, options
@@ -34,7 +33,7 @@ getCommand = ->
       writeData options.directory, date.format('YYYY-MM-DD'), data
       console.log [
         'create a new post'
-        markdownFile
+        dataFile
         metaFile
       ].join('\n')
       return 0
@@ -43,6 +42,9 @@ getCommand = ->
 getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   if fs.existsSync configFile then require(configFile) else {}
+
+getDataFile = (dir, date) ->
+  getBaseNamePath(dir, date) + '.md'
 
 getDataTemplate = (m, options) ->
   if options.weekend
