@@ -30,7 +30,7 @@ getCommand = ->
       meta = getMetaTemplate date, options
       data = getDataTemplate date, options
       writeMeta metaFile, meta
-      writeData options.directory, date.format('YYYY-MM-DD'), data
+      writeData dataFile, data
       console.log [
         'create a new post'
         dataFile
@@ -85,8 +85,7 @@ readMeta = (file) ->
   data = fs.readFileSync file, encoding: 'utf8'
   JSON.parse(data)
 
-writeData = (dir, date, data) ->
-  file = getBaseNamePath(dir, date) + '.md'
+writeData = (file, data) ->
   fs.outputFileSync file, data, encoding: 'utf8'
 
 writeMeta = (file, meta) ->
