@@ -13,12 +13,19 @@ getCommand = ->
   program
   .command 'new', 'create a new post'
   .option '-d, --date <date>'
+  .option '-y, --yesterday'
   .option '-w, --weekend'
   .action (options = {}) ->
     config = getConfig()
     options.directory = config.directory || '/home/bouzuya/blog.bouzuya.net'
-
-    ts = if options.date then options.date + 'T23:59:59+09:00' else null
+    # ts = 'yyyy-mm-ddThh:mm:ssZ' | null
+    ts = if options.yesterday
+      moment().subtract(1, 'd').format('YYYY-MM-DD') + 'T23:59:59+09:00'
+    else if options.date
+      options.date + 'T23:59:59+09:00'
+    else
+      null
+    # date = moment
     date = moment.apply null, if ts? then [ts, 'YYYY-MM-DDThh:mm:ssZ'] else []
     dataFile = getDataFile options.directory, date.format('YYYY-MM-DD')
     metaFile = getMetaFile options.directory, date.format('YYYY-MM-DD')
