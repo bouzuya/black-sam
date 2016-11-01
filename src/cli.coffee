@@ -55,8 +55,8 @@ getConfig = ->
     cwd = process.cwd()
     packageJson = path.join(cwd, 'package.json')
     if fs.existsSync(packageJson)
-      package = JSON.parse(fs.readFileSync(packageJson))
-      package['black-sam'] ? {}
+      pkg = JSON.parse(fs.readFileSync(packageJson))
+      pkg['black-sam'] ? {}
     else
       {}
   config.directory = config.directory ? '/home/bouzuya/blog.bouzuya.net'
