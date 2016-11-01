@@ -17,7 +17,7 @@ getCommand = ->
   .option '-w, --weekend'
   .action (options = {}) ->
     config = getConfig()
-    options.directory = config.directory || '/home/bouzuya/blog.bouzuya.net'
+    options.directory = config.directory
     # ts = 'yyyy-mm-ddThh:mm:ssZ' | null
     ts = if options.yesterday
       moment().subtract(1, 'd').format('YYYY-MM-DD') + 'T23:59:59+09:00'
@@ -48,7 +48,9 @@ getCommand = ->
 
 getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
-  if fs.existsSync configFile then require(configFile) else {}
+  config = if fs.existsSync configFile then require(configFile) else {}
+  config.directory = config.directory ? '/home/bouzuya/blog.bouzuya.net'
+  config
 
 getDataFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.md'
