@@ -48,7 +48,16 @@ getCommand = ->
 
 getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
-  config = if fs.existsSync configFile then require(configFile) else {}
+  config = if fs.existsSync(configFile)
+    require(configFile)
+  else
+    cwd = process.cwd()
+    packageJson = path.join(cwd, 'package.json')
+    if fs.existsSync(packageJson)
+      package = JSON.parse(fs.readFileSync(packageJson))
+      package['black-sam'] ? {}
+    else
+      {}
   config.directory = config.directory ? '/home/bouzuya/blog.bouzuya.net'
   config
 
