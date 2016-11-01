@@ -8,7 +8,8 @@
     "url": "http://bouzuya.net"
   },
   "bin": {
-    "bbn": "./bin/bbn"
+    "bbn": "./bin/bbn",
+    "black-sam": "./bin/black-sam"
   },
   "bugs": {
     "url": "https://github.com/bouzuya/black-sam/issues"

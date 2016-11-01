@@ -8,7 +8,7 @@ getBaseNamePath = (dir, date) ->
   path.join dir, y, m, date
 
 getCommand = ->
-  program = commander 'bbn'
+  program = commander 'black-sam'
   program.version require('../package.json').version
   program
   .command 'new', 'create a new post'

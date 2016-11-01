@@ -19,7 +19,7 @@ See: [bouzuya/blog.bouzuya.net][]
       "directory": "/home/bouzuya/blog.bouzuya.net/data"
     }
 
-    $ bbn new
+    $ black-sam new
     create a new post
     /home/bouzuya/blog.bouzuya.net/data/2016/08/2016-08-25.md
     /home/bouzuya/blog.bouzuya.net/data/2016/08/2016-08-25.json
