@@ -49,6 +49,7 @@ getCommand = ->
 getConfig = ->
   configFile = path.join process.env.HOME, '.bbn.json'
   config = if fs.existsSync(configFile)
+    console.warn('DEPRECATED: Use `package.json` instead of `~/.bbn.json`.')
     require(configFile)
   else
     cwd = process.cwd()
