@@ -14,9 +14,13 @@ See: [bouzuya/blog.bouzuya.net][]
 
 ## Usage
 
-    $ cat ~/.bbn.json
+    $ cat ./package.json
     {
-      "directory": "/home/bouzuya/blog.bouzuya.net/data"
+      ...
+      "black-sam": {
+        "directory": "/home/bouzuya/blog.bouzuya.net/data"
+      }
+      ...
     }
 
     $ black-sam new
