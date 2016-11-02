@@ -35,7 +35,7 @@ getCommand = ->
       return 1
     else
       id = if options.weekend then 'weekend' else 'default'
-      { meta, data } = getTemplate id, { date, directory: options.directory }
+      { meta, data } = render(id, { date, directory: options.directory })
       writeMeta metaFile, meta
       writeData dataFile, data
       console.log [
@@ -102,9 +102,8 @@ templates =
     data: getDataTemplateForWeekend
     meta: getMetaTemplate
 
-getTemplate = (id, { date, directory }) ->
-  { data, meta } = templates[id]
-  { data: data({ date, directory }), meta: meta({ date, directory }) }
+getTemplate = (id) ->
+  templates[id]
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
@@ -112,6 +111,10 @@ getTitle = (dir, date) ->
 readMeta = (file) ->
   data = fs.readFileSync file, encoding: 'utf8'
   JSON.parse(data)
+
+render = (id, { date, directory }) ->
+  { data, meta } = getTemplate(id)
+  { data: data({ date, directory }), meta: meta({ date, directory }) }
 
 writeData = (file, data) ->
   fs.outputFileSync file, data, encoding: 'utf8'
