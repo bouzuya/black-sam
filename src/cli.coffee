@@ -64,12 +64,6 @@ getConfig = ->
 getDataFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.md'
 
-getDataTemplate = (m, options) ->
-  if options.weekend
-    getDataTemplateForWeekend(m, options)
-  else
-    getDataTemplateForWeekday(m, options)
-
 getDataTemplateForWeekday = (m, options) ->
   ''
 
@@ -96,10 +90,18 @@ getMetaTemplate = (m, _options) ->
   tags: ['']
   minutes: 0
 
+templates =
+  default:
+    data: getDataTemplateForWeekday
+    meta: getMetaTemplate
+  weekend:
+    data: getDataTemplateForWeekend
+    meta: getMetaTemplate
+
 getTemplate = (date, options) ->
-  meta = getMetaTemplate date, options
-  data = getDataTemplate date, options
-  { meta, data }
+  id = if options.weekend then 'weekend' else 'default'
+  { data, meta } = templates[id]
+  { data: data(date, options), meta: meta(date, options) }
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
