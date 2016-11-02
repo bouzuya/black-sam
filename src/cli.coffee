@@ -34,7 +34,8 @@ getCommand = ->
       console.error "the post #{dataFile} already exists"
       return 1
     else
-      { meta, data } = getTemplate date, options
+      id = if options.weekend then 'weekend' else 'default'
+      { meta, data } = getTemplate id, { date, directory: options.directory }
       writeMeta metaFile, meta
       writeData dataFile, data
       console.log [
@@ -64,16 +65,19 @@ getConfig = ->
 getDataFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.md'
 
-getDataTemplateForWeekday = (m, options) ->
+getDataTemplateForWeekday = (_m, _options) ->
   ''
 
-getDataTemplateForWeekend = (m, options) ->
+# getDataTemplateForWeekend = (
+#   m: Moment, options: { directory: string; }
+# ): string
+getDataTemplateForWeekend = (m, { directory }) ->
   posts = [1..7]
   .map (i) ->
     moment(m).subtract(i, 'days').format('YYYY-MM-DD')
   .map (date) ->
     date: date
-    title: getTitle options.directory, date
+    title: getTitle directory, date
     url: "http://blog.bouzuya.net/#{date.replace(/-/g, '/')}/"
   """
     # 今週のふりかえり
@@ -98,10 +102,9 @@ templates =
     data: getDataTemplateForWeekend
     meta: getMetaTemplate
 
-getTemplate = (date, options) ->
-  id = if options.weekend then 'weekend' else 'default'
+getTemplate = (id, { date, directory }) ->
   { data, meta } = templates[id]
-  { data: data(date, options), meta: meta(date, options) }
+  { data: data(date, { directory }), meta: meta(date, {}) }
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
