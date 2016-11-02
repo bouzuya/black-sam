@@ -34,8 +34,7 @@ getCommand = ->
       console.error "the post #{dataFile} already exists"
       return 1
     else
-      meta = getMetaTemplate date, options
-      data = getDataTemplate date, options
+      { meta, data } = getTemplate date, options
       writeMeta metaFile, meta
       writeData dataFile, data
       console.log [
@@ -96,6 +95,11 @@ getMetaTemplate = (m, _options) ->
   title: ''
   tags: ['']
   minutes: 0
+
+getTemplate = (date, options) ->
+  meta = getMetaTemplate date, options
+  data = getDataTemplate date, options
+  { meta, data }
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
