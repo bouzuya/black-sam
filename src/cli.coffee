@@ -15,6 +15,7 @@ getCommand = ->
   .command 'new', 'create a new post'
   .option '-d, --date <date>'
   .option '-y, --yesterday'
+  .option '-t, --template <template>'
   .option '-w, --weekend'
   .action (options = {}) ->
     config = getConfig()
@@ -35,7 +36,7 @@ getCommand = ->
       console.error "the post #{dataFile} already exists"
       return 1
     else
-      id = if options.weekend then 'weekend' else 'default'
+      id = options.template ? (if options.weekend then 'weekend' else 'default')
       { meta, data } = render(id, { date, directory: options.directory })
       writeMeta metaFile, meta
       writeData dataFile, data
