@@ -1,7 +1,7 @@
-default = require './template-weekday'
+weekday = require './template-weekday'
 weekend = require './template-weekend'
 
-templates = { default, weekend }
+templates = { default: weekday, weekday, weekend }
 
 module.exports = (id) ->
   templates[id]
