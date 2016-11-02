@@ -65,13 +65,13 @@ getConfig = ->
 getDataFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.md'
 
-getDataTemplateForWeekday = (_m, _options) ->
+getDataTemplateForWeekday = (_options) ->
   ''
 
 # getDataTemplateForWeekend = (
-#   m: Moment, options: { directory: string; }
+#   options: { date: Moment, directory: string; }
 # ): string
-getDataTemplateForWeekend = (m, { directory }) ->
+getDataTemplateForWeekend = ({ date: m, directory }) ->
   posts = [1..7]
   .map (i) ->
     moment(m).subtract(i, 'days').format('YYYY-MM-DD')
@@ -88,8 +88,8 @@ getDataTemplateForWeekend = (m, { directory }) ->
 getMetaFile = (dir, date) ->
   getBaseNamePath(dir, date) + '.json'
 
-getMetaTemplate = (m, _options) ->
-  pubdate: m.format()
+getMetaTemplate = ({ date }) ->
+  pubdate: date.format()
   title: ''
   tags: ['']
   minutes: 0
@@ -104,7 +104,7 @@ templates =
 
 getTemplate = (id, { date, directory }) ->
   { data, meta } = templates[id]
-  { data: data(date, { directory }), meta: meta(date, {}) }
+  { data: data({ date, directory }), meta: meta({ date, directory }) }
 
 getTitle = (dir, date) ->
   readMeta(getMetaFile(dir, date)).title
