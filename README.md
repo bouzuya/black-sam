@@ -10,7 +10,7 @@ See: [bouzuya/blog.bouzuya.net][]
 
 ## Installation
 
-    $ npm install -g bouzuya/black-sam
+    $ npm install -g @bouzuya/black-sam
 
 ## Usage
 
